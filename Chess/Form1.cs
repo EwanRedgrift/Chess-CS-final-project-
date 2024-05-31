@@ -21,7 +21,6 @@ namespace Chess
         List<string> peiceNames;
         List<string> peiceOwndership;
         List<Rectangle> peiceRectangles;
-        List<string> peicePoints;
 
         List<Rectangle> possibleMoves = new List<Rectangle>();
 
@@ -155,11 +154,11 @@ namespace Chess
                                     {
                                         possibleMoves.Add(new Rectangle(peiceRectangles[i].X, peiceRectangles[i].Y - squareSize, squareSize, squareSize));
                                     }
-                                    else if (peiceRectangles[i].X - squareSize == peiceRectangles[j].X && peiceRectangles[i].Y - squareSize == peiceRectangles[j].Y)
+                                    else if (peiceRectangles[i].X - squareSize == peiceRectangles[j].X && peiceRectangles[i].Y - squareSize == peiceRectangles[j].Y && peiceOwndership[i] != peiceOwndership[j])
                                     {
                                         possibleMoves.Add(new Rectangle(peiceRectangles[i].X - squareSize, peiceRectangles[i].Y - squareSize, squareSize, squareSize));
                                     }
-                                    else if (peiceRectangles[i].X + squareSize == peiceRectangles[j].X && peiceRectangles[i].Y - squareSize == peiceRectangles[j].Y)
+                                    else if (peiceRectangles[i].X + squareSize == peiceRectangles[j].X && peiceRectangles[i].Y - squareSize == peiceRectangles[j].Y && peiceOwndership[i] != peiceOwndership[j])
                                     {
                                         possibleMoves.Add(new Rectangle(peiceRectangles[i].X + squareSize, peiceRectangles[i].Y - squareSize, squareSize, squareSize));
                                     }
@@ -173,11 +172,11 @@ namespace Chess
                                     {
                                         possibleMoves.Add(new Rectangle(peiceRectangles[i].X, peiceRectangles[i].Y + squareSize, squareSize, squareSize));
                                     }
-                                    else if (peiceRectangles[i].X - squareSize == peiceRectangles[j].X && peiceRectangles[i].Y + squareSize == peiceRectangles[j].Y)
+                                    else if (peiceRectangles[i].X - squareSize == peiceRectangles[j].X && peiceRectangles[i].Y + squareSize == peiceRectangles[j].Y && peiceOwndership[i] != peiceOwndership[j])
                                     {
                                         possibleMoves.Add(new Rectangle(peiceRectangles[i].X - squareSize, peiceRectangles[i].Y + squareSize, squareSize, squareSize));
                                     }
-                                    else if (peiceRectangles[i].X + squareSize == peiceRectangles[j].X && peiceRectangles[i].Y + squareSize == peiceRectangles[j].Y)
+                                    else if (peiceRectangles[i].X + squareSize == peiceRectangles[j].X && peiceRectangles[i].Y + squareSize == peiceRectangles[j].Y && peiceOwndership[i] != peiceOwndership[j])
                                     {
                                         possibleMoves.Add(new Rectangle(peiceRectangles[i].X + squareSize, peiceRectangles[i].Y + squareSize, squareSize, squareSize));
                                     }
@@ -200,12 +199,15 @@ namespace Chess
                         if (peiceRectangles[j].X == possibleMoves[i].X && peiceRectangles[j].Y == possibleMoves[i].Y)
                         {
                             peiceRectangles[selectedpiece] = new Rectangle(possibleMoves[i].X, possibleMoves[i].Y, squareSize, squareSize);
-                            /*peiceNames.RemoveAt(j);
-                            peiceOwndership.RemoveAt(j);
-                            peiceRectangles.RemoveAt(j); */
-                            //peiceRectangles[j] = new Rectangle(0, 0, 0, 0);
-                        }                           
-                        peiceRectangles[selectedpiece] = new Rectangle(possibleMoves[i].X, possibleMoves[i].Y, squareSize, squareSize);
+                            //peiceNames.RemoveAt(j);
+                            //peiceOwndership.RemoveAt(j);
+                            //peiceRectangles.RemoveAt(j);
+                            peiceRectangles[j] = new Rectangle(0, 0, 0, 0);
+                        }
+                        else if (peiceRectangles[j].X != possibleMoves[i].X && peiceRectangles[j].Y != possibleMoves[i].Y)
+                        {
+                            peiceRectangles[selectedpiece] = new Rectangle(possibleMoves[i].X, possibleMoves[i].Y, squareSize, squareSize);
+                        }
                     }
                     possibleMoves.Clear();
                 }
@@ -227,6 +229,11 @@ namespace Chess
                     break;
                 case Keys.Escape:
                     break;
+
+                    /*if (p2.IntersectsWith(ballList[i]))
+                    {
+                        ballList.RemoveAt(i);
+                    }*/
             }
         }
     }
