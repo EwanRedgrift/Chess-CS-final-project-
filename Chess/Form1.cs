@@ -137,83 +137,94 @@ namespace Chess
 
         private void Form1_MouseUp(object sender, MouseEventArgs e)
         {
-            for (int i = 0; i < peiceRectangles.Count(); i++)
-            {
-                if (e.X > peiceRectangles[i].X && e.X < (peiceRectangles[i].X + squareSize) && e.Y > peiceRectangles[i].Y && e.Y < (peiceRectangles[i].Y + squareSize))
-                {
-                    selectedpiece = i;
+            bool moved = false;
 
-                    switch (peiceNames[i])
-                    {
-                        case "Pawn":
-                            if (peiceOwndership[i] == "White")
-                            {
-                                for (int j = 0; j < peiceRectangles.Count(); j++)
-                                {
-                                    if (peiceRectangles[i].X != peiceRectangles[j].X && peiceRectangles[i].Y - squareSize != peiceRectangles[j].Y)
-                                    {
-                                        possibleMoves.Add(new Rectangle(peiceRectangles[i].X, peiceRectangles[i].Y - squareSize, squareSize, squareSize));
-                                    }
-                                    else if (peiceRectangles[i].X - squareSize == peiceRectangles[j].X && peiceRectangles[i].Y - squareSize == peiceRectangles[j].Y && peiceOwndership[i] != peiceOwndership[j])
-                                    {
-                                        possibleMoves.Add(new Rectangle(peiceRectangles[i].X - squareSize, peiceRectangles[i].Y - squareSize, squareSize, squareSize));
-                                    }
-                                    else if (peiceRectangles[i].X + squareSize == peiceRectangles[j].X && peiceRectangles[i].Y - squareSize == peiceRectangles[j].Y && peiceOwndership[i] != peiceOwndership[j])
-                                    {
-                                        possibleMoves.Add(new Rectangle(peiceRectangles[i].X + squareSize, peiceRectangles[i].Y - squareSize, squareSize, squareSize));
-                                    }
-                                }
-                            }
-                            else
-                            {
-                                for (int j = 0; j < peiceRectangles.Count(); j++)
-                                {
-                                    if (peiceRectangles[i].X != peiceRectangles[j].X && peiceRectangles[i].Y + squareSize != peiceRectangles[j].Y)
-                                    {
-                                        possibleMoves.Add(new Rectangle(peiceRectangles[i].X, peiceRectangles[i].Y + squareSize, squareSize, squareSize));
-                                    }
-                                    else if (peiceRectangles[i].X - squareSize == peiceRectangles[j].X && peiceRectangles[i].Y + squareSize == peiceRectangles[j].Y && peiceOwndership[i] != peiceOwndership[j])
-                                    {
-                                        possibleMoves.Add(new Rectangle(peiceRectangles[i].X - squareSize, peiceRectangles[i].Y + squareSize, squareSize, squareSize));
-                                    }
-                                    else if (peiceRectangles[i].X + squareSize == peiceRectangles[j].X && peiceRectangles[i].Y + squareSize == peiceRectangles[j].Y && peiceOwndership[i] != peiceOwndership[j])
-                                    {
-                                        possibleMoves.Add(new Rectangle(peiceRectangles[i].X + squareSize, peiceRectangles[i].Y + squareSize, squareSize, squareSize));
-                                    }
-                                }
-                            }
-                            break;
-                        
-                        case "Rook":
-                            break;
-                    }
-                }
-                
-            }
             for (int i = 0; i < possibleMoves.Count(); i++)
             {
                 if (e.X > possibleMoves[i].X && e.X < (possibleMoves[i].X + squareSize) && e.Y > possibleMoves[i].Y && e.Y < (possibleMoves[i].Y + squareSize))
                 {
                     for (int j = 0; j < peiceRectangles.Count(); j++)
                     {
-                        if (peiceRectangles[j].X == possibleMoves[i].X && peiceRectangles[j].Y == possibleMoves[i].Y)
+                        if (peiceRectangles[j].X == possibleMoves[i].X && peiceRectangles[j].Y == possibleMoves[i].Y && peiceRectangles[selectedpiece].X != possibleMoves[i].X && peiceRectangles[selectedpiece].Y != possibleMoves[i].Y)
                         {
+                            //peiceRectangles[j] = new Rectangle(0, 0, 0, 0);
                             peiceRectangles[selectedpiece] = new Rectangle(possibleMoves[i].X, possibleMoves[i].Y, squareSize, squareSize);
-                            //peiceNames.RemoveAt(j);
-                            //peiceOwndership.RemoveAt(j);
-                            //peiceRectangles.RemoveAt(j);
-                            peiceRectangles[j] = new Rectangle(0, 0, 0, 0);
+                            peiceNames.RemoveAt(j);
+                            peiceOwndership.RemoveAt(j);
+                            peiceRectangles.RemoveAt(j);
+                            
                         }
                         else if (peiceRectangles[j].X != possibleMoves[i].X && peiceRectangles[j].Y != possibleMoves[i].Y)
                         {
                             peiceRectangles[selectedpiece] = new Rectangle(possibleMoves[i].X, possibleMoves[i].Y, squareSize, squareSize);
                         }
+
+                        moved = true;
                     }
+
                     possibleMoves.Clear();
                 }
             }
+            if (moved == false)
+            {
+                for (int i = 0; i < peiceRectangles.Count(); i++)
+                {
+                    if (e.X > peiceRectangles[i].X && e.X < (peiceRectangles[i].X + squareSize) && e.Y > peiceRectangles[i].Y && e.Y < (peiceRectangles[i].Y + squareSize))
+                    {
+                        selectedpiece = i;
+
+                        switch (peiceNames[i])
+                        {
+                            case "Pawn":
+                                if (peiceOwndership[i] == "White")
+                                {
+                                    for (int j = 0; j < peiceRectangles.Count(); j++)
+                                    {
+                                        if (peiceRectangles[i].X != peiceRectangles[j].X && peiceRectangles[i].Y - squareSize != peiceRectangles[j].Y)
+                                        {
+                                            possibleMoves.Add(new Rectangle(peiceRectangles[i].X, peiceRectangles[i].Y - squareSize, squareSize, squareSize));
+                                        }
+                                        else if (peiceRectangles[i].X - squareSize == peiceRectangles[j].X && peiceRectangles[i].Y - squareSize == peiceRectangles[j].Y && peiceOwndership[i] != peiceOwndership[j])
+                                        {
+                                            possibleMoves.Add(new Rectangle(peiceRectangles[i].X - squareSize, peiceRectangles[i].Y - squareSize, squareSize, squareSize));
+                                        }
+                                        else if (peiceRectangles[i].X + squareSize == peiceRectangles[j].X && peiceRectangles[i].Y - squareSize == peiceRectangles[j].Y && peiceOwndership[i] != peiceOwndership[j])
+                                        {
+                                            possibleMoves.Add(new Rectangle(peiceRectangles[i].X + squareSize, peiceRectangles[i].Y - squareSize, squareSize, squareSize));
+                                        }
+                                    }
+                                }
+                                else
+                                {
+                                    for (int j = 0; j < peiceRectangles.Count(); j++)
+                                    {
+                                        if (peiceRectangles[i].X != peiceRectangles[j].X && peiceRectangles[i].Y + squareSize != peiceRectangles[j].Y)
+                                        {
+                                            possibleMoves.Add(new Rectangle(peiceRectangles[i].X, peiceRectangles[i].Y + squareSize, squareSize, squareSize));
+                                        }
+                                        else if (peiceRectangles[i].X - squareSize == peiceRectangles[j].X && peiceRectangles[i].Y + squareSize == peiceRectangles[j].Y && peiceOwndership[i] != peiceOwndership[j])
+                                        {
+                                            possibleMoves.Add(new Rectangle(peiceRectangles[i].X - squareSize, peiceRectangles[i].Y + squareSize, squareSize, squareSize));
+                                        }
+                                        else if (peiceRectangles[i].X + squareSize == peiceRectangles[j].X && peiceRectangles[i].Y + squareSize == peiceRectangles[j].Y && peiceOwndership[i] != peiceOwndership[j])
+                                        {
+                                            possibleMoves.Add(new Rectangle(peiceRectangles[i].X + squareSize, peiceRectangles[i].Y + squareSize, squareSize, squareSize));
+                                        }
+                                    }
+                                }
+                                break;
+
+                            case "Rook":
+                                break;
+                        }
+                    }
+
+                }
+            }
             
-            Refresh();
+            
+
+            Refresh();        
         }
 
         private void Form1_MouseDown(object sender, MouseEventArgs e)
