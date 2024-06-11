@@ -24,13 +24,26 @@ namespace Chess
 
         List<Rectangle> possibleMoves = new List<Rectangle>();
 
+        string[,] boardCoords =
+        {
+            {"BR", "BH", "BB", "BQ", "BK", "BB", "BH", "BR"},
+            {"BP", "BP", "BP", "BP", "BP", "BP", "BP", "BP"},
+            {"XX", "XX", "XX", "XX", "XX", "XX", "XX", "XX"},
+            {"XX", "XX", "XX", "XX", "XX", "XX", "XX", "XX"},
+            {"XX", "XX", "XX", "XX", "XX", "XX", "XX", "XX"},
+            {"XX", "XX", "XX", "XX", "XX", "XX", "XX", "XX"},
+            {"WP", "WP", "WP", "WP", "WP", "WP", "WP", "WP"},
+            {"WR", "WH", "WB", "WQ", "WK", "WB", "WH", "WR"},
+        };
+
         Brush lightBrush = Brushes.LightGray;
         Brush darkBrush = Brushes.Gray;
         Brush greenBrush = Brushes.Green;
         Brush blueBrush = Brushes.Blue;
 
         bool possibleMovesRendered = false;
-        int selectedpiece;
+        int selectedpieceX;
+        int selectedpieceY;
 
         public Form1()
         {
@@ -66,7 +79,10 @@ namespace Chess
                 }
             }
 
-            for (int i = 0; i < peiceRectangles.Count(); i++)
+
+
+
+            /*for (int i = 0; i < peiceRectangles.Count(); i++)
             {
                 switch (peiceNames[i])
                 {
@@ -132,7 +148,84 @@ namespace Chess
                         break;
                 }
 
+            }*/
+
+
+            for (int i = 0; i < boardSize; i++)
+            {
+                for (int j = 0; j < boardSize; j++)
+                {
+                    Rectangle renderedPeice = new Rectangle(j * squareSize,  i * squareSize, squareSize, squareSize);
+
+                    switch (boardCoords[i, j][1])
+                    {
+                        case 'R':
+                            if (boardCoords[i, j][0] == 'W')
+                            {
+                                e.Graphics.DrawImageUnscaledAndClipped(Properties.Resources.Rooke_rlt60, renderedPeice);
+                            }
+                            else
+                            {
+                                e.Graphics.DrawImageUnscaledAndClipped(Properties.Resources.Black_Rooke_rdt60, renderedPeice);
+                            }
+                            break;
+                        case 'H':
+                            if (boardCoords[i, j][0] == 'W')
+                            {
+                                e.Graphics.DrawImageUnscaledAndClipped(Properties.Resources.Knight_nlt60, renderedPeice);
+                            }
+                            else
+                            {
+                                e.Graphics.DrawImageUnscaledAndClipped(Properties.Resources.Black_Knight_ndt60, renderedPeice);
+                            }
+                            break;
+                        case 'B':
+                            if (boardCoords[i, j][0] == 'W')
+                            {
+                                e.Graphics.DrawImageUnscaledAndClipped(Properties.Resources.Bishop_blt60, renderedPeice);
+                            }
+                            else
+                            {
+                                e.Graphics.DrawImageUnscaledAndClipped(Properties.Resources.Black_Bishop_bdt60, renderedPeice);
+                            }
+                            break;
+                        case 'Q':
+                            if (boardCoords[i, j][0] == 'W')
+                            {
+                                e.Graphics.DrawImageUnscaledAndClipped(Properties.Resources.Queen_qlt60, renderedPeice);
+                            }
+                            else
+                            {
+                                e.Graphics.DrawImageUnscaledAndClipped(Properties.Resources.Queen_Black_qdt60, renderedPeice);
+                            }
+                            break;
+                        case 'K':
+                            if (boardCoords[i, j][0] == 'W')
+                            {
+                                e.Graphics.DrawImageUnscaledAndClipped(Properties.Resources.King_klt60, renderedPeice);
+                            }
+                            else
+                            {
+                                e.Graphics.DrawImageUnscaledAndClipped(Properties.Resources.King_Black_kdt60, renderedPeice);
+                            }
+                            break;
+                        case 'P':
+                            if (boardCoords[i, j][0] == 'W')
+                            {
+                                e.Graphics.DrawImageUnscaledAndClipped(Properties.Resources.Pawn_plt60, renderedPeice);
+                            }
+                            else
+                            {
+                                e.Graphics.DrawImageUnscaledAndClipped(Properties.Resources.Black_Pawn_pdt60, renderedPeice);
+                            }
+                            break;
+                        default:
+
+                            break;
+                    }
+                }
             }
+
         }
 
         private void Form1_MouseUp(object sender, MouseEventArgs e)
@@ -143,87 +236,55 @@ namespace Chess
             {
                 if (e.X > possibleMoves[i].X && e.X < (possibleMoves[i].X + squareSize) && e.Y > possibleMoves[i].Y && e.Y < (possibleMoves[i].Y + squareSize))
                 {
-                    for (int j = 0; j < peiceRectangles.Count(); j++)
-                    {
-                        if (peiceRectangles[j].X == possibleMoves[i].X && peiceRectangles[j].Y == possibleMoves[i].Y && peiceRectangles[selectedpiece].X != possibleMoves[i].X && peiceRectangles[selectedpiece].Y != possibleMoves[i].Y)
-                        {
-                            //peiceRectangles[j] = new Rectangle(0, 0, 0, 0);
-                            peiceRectangles[selectedpiece] = new Rectangle(possibleMoves[i].X, possibleMoves[i].Y, squareSize, squareSize);
-                            peiceNames.RemoveAt(j);
-                            peiceOwndership.RemoveAt(j);
-                            peiceRectangles.RemoveAt(j);
-                            
-                        }
-                        else if (peiceRectangles[j].X != possibleMoves[i].X && peiceRectangles[j].Y != possibleMoves[i].Y)
-                        {
-                            peiceRectangles[selectedpiece] = new Rectangle(possibleMoves[i].X, possibleMoves[i].Y, squareSize, squareSize);
-                        }
-
-                        moved = true;
-                    }
+                    boardCoords[(possibleMoves[i].X / squareSize), (possibleMoves[i].Y / squareSize)] = boardCoords[selectedpieceX, selectedpieceY];
+                    boardCoords[selectedpieceX, selectedpieceY] = "XX";
 
                     possibleMoves.Clear();
                 }
+            
             }
             if (moved == false)
             {
-                for (int i = 0; i < peiceRectangles.Count(); i++)
+                for (int i = 0; i < boardSize; i++)
                 {
-                    if (e.X > peiceRectangles[i].X && e.X < (peiceRectangles[i].X + squareSize) && e.Y > peiceRectangles[i].Y && e.Y < (peiceRectangles[i].Y + squareSize))
+                    for (int j = 0; j < boardSize; j++)
                     {
-                        selectedpiece = i;
-
-                        switch (peiceNames[i])
+                        if (e.X > (i * squareSize) && e.X < ((1 + i) * squareSize) && e.Y > (j * squareSize) && e.Y < ((1 + j) * squareSize))
                         {
-                            case "Pawn":
-                                if (peiceOwndership[i] == "White")
-                                {
-                                    for (int j = 0; j < peiceRectangles.Count(); j++)
+                            switch (boardCoords[i, j][1])
+                            {
+                                case 'P':
+                                    if (boardCoords[i, j][0] == 'W')
                                     {
-                                        if (peiceRectangles[i].X != peiceRectangles[j].X && peiceRectangles[i].Y - squareSize != peiceRectangles[j].Y)
+                                        if (boardCoords[i, j - 1] == "XX")
                                         {
-                                            possibleMoves.Add(new Rectangle(peiceRectangles[i].X, peiceRectangles[i].Y - squareSize, squareSize, squareSize));
+                                            possibleMoves.Add(new Rectangle(i * squareSize, (j - 1) * squareSize, squareSize, squareSize));
+                                            selectedpieceX = i;
+                                            selectedpieceY = j;
                                         }
-                                        else if (peiceRectangles[i].X - squareSize == peiceRectangles[j].X && peiceRectangles[i].Y - squareSize == peiceRectangles[j].Y && peiceOwndership[i] != peiceOwndership[j])
+                                        else if (boardCoords[i + 1, j - 1][0] == 'B')
                                         {
-                                            possibleMoves.Add(new Rectangle(peiceRectangles[i].X - squareSize, peiceRectangles[i].Y - squareSize, squareSize, squareSize));
+                                            possibleMoves.Add(new Rectangle((i + 1) * squareSize, (j - 1) * squareSize, squareSize, squareSize));
+                                            selectedpieceX = i;
+                                            selectedpieceY = j;
                                         }
-                                        else if (peiceRectangles[i].X + squareSize == peiceRectangles[j].X && peiceRectangles[i].Y - squareSize == peiceRectangles[j].Y && peiceOwndership[i] != peiceOwndership[j])
+                                        else if (boardCoords[i - 1, j - 1][0] == 'B')
                                         {
-                                            possibleMoves.Add(new Rectangle(peiceRectangles[i].X + squareSize, peiceRectangles[i].Y - squareSize, squareSize, squareSize));
+                                            possibleMoves.Add(new Rectangle((i - 1) * squareSize, (j - 1) * squareSize, squareSize, squareSize));
+                                            selectedpieceX = i;
+                                            selectedpieceY = j;
                                         }
                                     }
-                                }
-                                else
-                                {
-                                    for (int j = 0; j < peiceRectangles.Count(); j++)
+                                    else
                                     {
-                                        if (peiceRectangles[i].X != peiceRectangles[j].X && peiceRectangles[i].Y + squareSize != peiceRectangles[j].Y)
-                                        {
-                                            possibleMoves.Add(new Rectangle(peiceRectangles[i].X, peiceRectangles[i].Y + squareSize, squareSize, squareSize));
-                                        }
-                                        else if (peiceRectangles[i].X - squareSize == peiceRectangles[j].X && peiceRectangles[i].Y + squareSize == peiceRectangles[j].Y && peiceOwndership[i] != peiceOwndership[j])
-                                        {
-                                            possibleMoves.Add(new Rectangle(peiceRectangles[i].X - squareSize, peiceRectangles[i].Y + squareSize, squareSize, squareSize));
-                                        }
-                                        else if (peiceRectangles[i].X + squareSize == peiceRectangles[j].X && peiceRectangles[i].Y + squareSize == peiceRectangles[j].Y && peiceOwndership[i] != peiceOwndership[j])
-                                        {
-                                            possibleMoves.Add(new Rectangle(peiceRectangles[i].X + squareSize, peiceRectangles[i].Y + squareSize, squareSize, squareSize));
-                                        }
+                                        
                                     }
-                                }
-                                break;
-
-                            case "Rook":
-                                break;
+                                    break;
+                            }
                         }
                     }
-
                 }
             }
-            
-            
-
             Refresh();        
         }
 
