@@ -111,6 +111,16 @@ namespace Chess.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
+        /// </summary>
+        internal static System.Drawing.Icon chess_icon {
+            get {
+                object obj = ResourceManager.GetObject("chess_icon", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         internal static System.Drawing.Bitmap King_Black_kdt60 {
@@ -147,6 +157,24 @@ namespace Chess.Properties {
             get {
                 object obj = ResourceManager.GetObject("Pawn_plt60", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.IO.UnmanagedMemoryStream similar to System.IO.MemoryStream.
+        /// </summary>
+        internal static System.IO.UnmanagedMemoryStream PeicePickup {
+            get {
+                return ResourceManager.GetStream("PeicePickup", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.IO.UnmanagedMemoryStream similar to System.IO.MemoryStream.
+        /// </summary>
+        internal static System.IO.UnmanagedMemoryStream PeicePutdown {
+            get {
+                return ResourceManager.GetStream("PeicePutdown", resourceCulture);
             }
         }
         

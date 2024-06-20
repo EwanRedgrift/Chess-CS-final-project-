@@ -133,6 +133,9 @@
   <data name="Black_Rooke_rdt60" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Black Rooke_rdt60.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="chess_icon" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\chess_icon-icons.com_65163.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="King_Black_kdt60" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\King Black_kdt60.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -144,6 +147,12 @@
   </data>
   <data name="Pawn_plt60" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Pawn_plt60.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="PeicePickup" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\PeicePickup.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="PeicePutdown" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\PeicePutdown.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="Queen_Black_qdt60" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Queen Black_qdt60.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>

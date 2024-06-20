@@ -116,5 +116,14 @@
   <ItemGroup>
     <None Include="Resources\Queen_qlt60.png" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\PeicePickup.wav" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\PeicePutdown.wav" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\chess_icon-icons.com_65163.ico" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
